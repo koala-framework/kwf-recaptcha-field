@@ -1,0 +1,16 @@
+{
+    "name": "koala-framework/kwf-recaptcha-field",
+    "description": "Koala Framework Form Field for Google Recaptcha protection",
+    "type": "library",
+    "require": {
+        "koala-framework/koala-framework": "~4.1 || ~5.0"
+    },
+    "license": "BSD-2-Clause",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-0": {
+            "KwfRecaptchaField_": ""
+        }
+    }
+}
