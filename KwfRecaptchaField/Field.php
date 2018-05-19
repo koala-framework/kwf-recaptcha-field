@@ -48,7 +48,7 @@ class KwfRecaptchaField_Field extends Kwf_Form_Field_Abstract
         $name = htmlspecialchars($this->getFieldName() . $fieldNamePostfix);
         $id = $idPrefix . $name;
         $action = ($actionName = $this->getActionName()) ? $actionName : preg_replace('#[^a-z0-9]+#i', '', $idPrefix . $name);
-        $callback = str_replace(array('-','_'), '', $idPrefix) . "GoogleReCaptchaLoaded";
+        $callback = "GoogleReCaptchaLoaded" . str_replace(array('-','_'), '', $idPrefix);
 
         $ret['html'] = "<input type=\"hidden\" id=\"{$id}\" name=\"{$name}\" />";
         $ret['html'] .= "<script src='https://www.google.com/recaptcha/api.js?onload={$callback}&render={$key}' async defer></script>";
