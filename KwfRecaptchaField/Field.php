@@ -11,6 +11,9 @@ class KwfRecaptchaField_Field extends Kwf_Form_Field_Abstract
     {
         $ret = parent::validate($row, $postData);
 
+        $sess = new Kwf_Session_Namespace("{$postData['componentId']}-recaptcha");
+        if ($sess->validated) return $ret;
+
         $error = array('message' => trlKwf('Something went wrong'));
         $value = $postData[$this->getFieldName()];
         if (!$value) {
@@ -36,6 +39,8 @@ class KwfRecaptchaField_Field extends Kwf_Form_Field_Abstract
             $ret[] = $error;
             return $ret;
         }
+
+        $sess->validated = true;
 
         return $ret;
     }
