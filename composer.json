@@ -8,6 +8,12 @@
     "license": "BSD-2-Clause",
     "minimum-stability": "dev",
     "prefer-stable": true,
+    "extra": {
+        "kwf-lingohub": {
+            "account": "vivid-planet",
+            "project": "kwf-recaptcha-field"
+        }
+    },
     "autoload": {
         "psr-0": {
             "KwfRecaptchaField_": ""
