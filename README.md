@@ -10,3 +10,7 @@ Koala Framework Form Field for Google Recaptcha protection
         kwfRecaptchaField.key = xxx
         kwfRecaptchaField.secret = xxx
         ...
+
+* register js field in `Web.defer.js`
+
+        require('kwfRecaptchaField/KwfRecaptchaField/Field');
