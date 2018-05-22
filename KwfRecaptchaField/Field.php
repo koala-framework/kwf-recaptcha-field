@@ -44,7 +44,6 @@ class KwfRecaptchaField_Field extends Kwf_Form_Field_Abstract
     {
         $ret = parent::getFrontendMetaData();
         $ret['key'] = Kwf_Config::getValue('kwfRecaptchaField.key');
-        $ret['callback'] = $this->getCallback();
         $ret['actionName'] = $this->getActionName();
         return $ret;
     }
@@ -54,8 +53,6 @@ class KwfRecaptchaField_Field extends Kwf_Form_Field_Abstract
         $ret = parent::getTemplateVars($values, $fieldNamePostfix, $idPrefix);
 
         $name = htmlspecialchars($this->getFieldName() . $fieldNamePostfix);
-        $callback = "GoogleReCaptchaLoaded" . str_replace(array('-','_'), '', $idPrefix);
-        $this->setCallback($callback);
         if (!$this->getActionName()) $this->setActionName($idPrefix . $name);
 
         $ret['html'] = "<input type=\"hidden\" name=\"{$name}\" />";
@@ -63,16 +60,13 @@ class KwfRecaptchaField_Field extends Kwf_Form_Field_Abstract
     }
 
     /**
+     * Every Action is shown separatly in the recaptcha admin for statistics
+     *
      * Note: actions may only contain alphanumeric characters and slashes, and must not be user-specific.
      */
     public function setActionName($value)
     {
         return $this->setProperty('actionName', preg_replace('#[^a-z0-9]+#i', '', $value));
-    }
-
-    public function setCallback($value)
-    {
-        return $this->setProperty('callback', $value);
     }
 
     protected function _getClient()

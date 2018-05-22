@@ -2,15 +2,15 @@ var $ = require('jquery');
 var fieldRegistry = require('kwf/commonjs/frontend-form/field-registry');
 var Field = require('kwf/commonjs/frontend-form/field/field');
 var kwfExtend = require('kwf/commonjs/extend');
+var recaptchaLoader = require('kwfRecaptchaField/KwfRecaptchaField/loader');
 
 var Recaptcha = kwfExtend(Field, {
     initField: function() {
         var config = this.form.getFieldConfig(this.getFieldName());
-        $.getScript('https://www.google.com/recaptcha/api.js?onload=' + config.callback + '&render=' + config.key);
 
-        window[config.callback] = (function() {
+        recaptchaLoader(config.key, (function() {
             this.setToken(config.key, config.actionName);
-        }).bind(this);
+        }).bind(this));
 
         this.form.on('submitSuccess', function() {
             this.setToken(config.key, config.actionName);
