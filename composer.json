@@ -3,7 +3,7 @@
     "description": "Koala Framework Form Field for Google Recaptcha protection",
     "type": "library",
     "require": {
-        "koala-framework/koala-framework": "~4.1 || ~5.0"
+        "koala-framework/koala-framework": "~4.1"
     },
     "license": "BSD-2-Clause",
     "minimum-stability": "dev",

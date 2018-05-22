@@ -40,26 +40,25 @@ class KwfRecaptchaField_Field extends Kwf_Form_Field_Abstract
         return $ret;
     }
 
+    public function getFrontendMetaData()
+    {
+        $ret = parent::getFrontendMetaData();
+        $ret['key'] = Kwf_Config::getValue('kwfRecaptchaField.key');
+        $ret['callback'] = $this->getCallback();
+        $ret['actionName'] = $this->getActionName();
+        return $ret;
+    }
+
     public function getTemplateVars($values, $fieldNamePostfix = '', $idPrefix = '')
     {
         $ret = parent::getTemplateVars($values, $fieldNamePostfix, $idPrefix);
 
-        $key = Kwf_Config::getValue('kwfRecaptchaField.key');
         $name = htmlspecialchars($this->getFieldName() . $fieldNamePostfix);
-        $id = $idPrefix . $name;
-        $action = ($actionName = $this->getActionName()) ? $actionName : preg_replace('#[^a-z0-9]+#i', '', $idPrefix . $name);
         $callback = "GoogleReCaptchaLoaded" . str_replace(array('-','_'), '', $idPrefix);
+        $this->setCallback($callback);
+        if (!$this->getActionName()) $this->setActionName($idPrefix . $name);
 
-        $ret['html'] = "<input type=\"hidden\" id=\"{$id}\" name=\"{$name}\" />";
-        $ret['html'] .= "<script src='https://www.google.com/recaptcha/api.js?onload={$callback}&render={$key}' async defer></script>";
-        $ret['html'] .= "<script>
-            window['{$callback}'] = function() {
-                grecaptcha.execute('{$key}', {action: '{$action}'}).then(function(token) {
-                    document.getElementById('{$id}').value = token;
-                });
-            };
-        </script>";
-
+        $ret['html'] = "<input type=\"hidden\" name=\"{$name}\" />";
         return $ret;
     }
 
@@ -69,6 +68,11 @@ class KwfRecaptchaField_Field extends Kwf_Form_Field_Abstract
     public function setActionName($value)
     {
         return $this->setProperty('actionName', preg_replace('#[^a-z0-9]+#i', '', $value));
+    }
+
+    public function setCallback($value)
+    {
+        return $this->setProperty('callback', $value);
     }
 
     protected function _getClient()
