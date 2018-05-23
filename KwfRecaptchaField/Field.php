@@ -12,6 +12,11 @@ class KwfRecaptchaField_Field extends Kwf_Form_Field_Abstract
         $ret = parent::validate($row, $postData);
 
         $error = array('message' => trlKwf('Something went wrong'));
+        if (!array_key_exists($this->getFieldName(), $postData) ) {
+            $ret[] = $error;
+            return $ret;
+        }
+
         $value = $postData[$this->getFieldName()];
         if (!$value) {
             $ret[] = $error;
